@@ -103,7 +103,7 @@ Each student gets a VM at `vmN.class.compgenlab.org` and logs in as `studentN@cl
 | --- | --- | --- |
 | JupyterLab | Days 1–3 | Notebooks and terminal |
 | Open WebUI (student is admin) | Days 1–2 | Chat interface; students connect their own MCP servers |
-| Student MCP server (systemd service) | Days 2–3 | The student's own tools: cell-line lookups and literature search |
+| Student MCP server (run from the command line) | Days 2–3 | The student's own tools: cell-line lookups and literature search |
 | hux coding agent | Day 3 | Directed analysis in a container |
 | Workshop model (Jetstream-hosted) | Days 1–3 | The LLM behind every interface |
 | Workshop webapp (instructor VM) | Days 1–3 | Live polls, charts, and anonymous votes |
@@ -239,8 +239,8 @@ Checkpoint: prebuilt index files. Stretch: upload the same abstracts to Open Web
 
 | Step | Mode | Min | Content |
 | --- | --- | --- | --- |
-| B1 | Follow-along | 15 | Write a FastMCP server with `lookup_cell_line` (Day 1's tool) and `search_literature` (your hybrid search); save and run `restart-server` |
-| B2 | Solo | 10 | Add `count_cell_lines(filter)`; restart |
+| B1 | Follow-along | 15 | Write a FastMCP server with `lookup_cell_line` (Day 1's tool) and `search_literature` (your hybrid search); start it in a JupyterLab terminal with `python server.py` |
+| B2 | Solo | 10 | Add `count_cell_lines(filter)`; stop the server (Ctrl-C) and start it again |
 | B3 | Follow-along | 10 | In Open WebUI: Settings → Admin → Integrations → External Tool Servers → add MCP (Streamable HTTP) with your server URL and auth None. Add paperKB the same way. Enable both in a chat |
 | B4 | Solo | 25 | Score 6 questions by hand under stuffing, retrieval only, and all tools, and submit to the webapp. Rerun the Day 1 PMID question for the before/after chart. Injection probe: query the planted abstract and see whether the agent follows its instruction |
 
@@ -248,7 +248,7 @@ Question set: 2 lookups, 2 aggregates, 1 literature question, and 1 that only pa
 
 ### Bring your own (10 min)
 
-Add one tool that reads a CSV from your own lab, restart the server, and ask about it in Open WebUI. A plate-layout CSV is provided as a fallback.
+Add one tool that reads a CSV from your own lab, stop and restart the server in its terminal, and ask about it in Open WebUI. A plate-layout CSV is provided as a fallback.
 
 ### Debrief (20 min)
 
@@ -262,7 +262,7 @@ Add one tool that reads a CSV from your own lab, restart the server, and ask abo
 
 1. Tomorrow: a full RNA-seq analysis of nutlin vs. DMSO in TP53 wild-type vs. knockout cells.
 2. Students pre-register 3 genes they expect to rise in wild-type but not knockout cells, and submit them to the webapp.
-3. Their server keeps running on their VM. Feedback card.
+3. Leave the server running in its JupyterLab terminal, or start it again at the beginning of Day 3. Feedback card.
 
 ## Day 3: AI-Assisted Coding for Bench Scientists
 
@@ -284,7 +284,7 @@ Dataset: [GSE86221](https://www.omicsdi.org/dataset/geo/GSE86221), HCT116 TP53 w
 
 ### Opening (20 min)
 
-1. Terminal orientation (10 min): open a terminal in JupyterLab, start hux; where files live; how to stop the agent.
+1. Terminal orientation (10 min): open a terminal in JupyterLab and start your Day 2 server if it isn't running; open a second terminal and start hux; where files live; how to stop the agent.
 2. The unplanned request (10 min): type "Analyze the RNA-seq data in `data/`" and watch. Expect plausible output that computes straight through the planted errors. Save it for the debrief.
 
 ### Lecture (30 min)
@@ -415,7 +415,7 @@ Request steps: submit the request with a CV and this syllabus as PDF; allow 1–
 | --- | --- |
 | JupyterLab | Workshop notebooks, `labagent` helpers, checkpoint files |
 | Open WebUI (latest; v0.6.31+ required for native MCP) | Workshop model preconfigured; `WEBUI_SECRET_KEY` set; code interpreter on; Docker run with `--add-host=host.docker.internal:host-gateway`; reference cell-line server pre-registered |
-| Student MCP server | systemd unit running the student's server file on port 8000; `restart-server` command |
+| Student MCP server | No service: the student starts the server from a JupyterLab terminal (`python server.py`, port 8000). JupyterLab terminals keep running when the browser tab closes, but the server stops if the terminal is closed or the VM reboots |
 | hux | Configured to the workshop model; Docker as container runtime |
 | Python container | PyDESeq2, gseapy, scikit-learn, rank\_bm25, numpy/pandas, matplotlib/seaborn, FastMCP, a small embedding model (pre-cached weights) |
 
