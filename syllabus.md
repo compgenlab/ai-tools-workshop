@@ -300,6 +300,12 @@ Other AI Use Cases in Biology (20 min):
 
 Plan → implement → verify (10 min): the opening agent was fast, confident, and wrong in ways it never flagged. The scientist owns the question, the checks, and the conclusions; the agent owns the typing. A plan includes pre-registered known answers.
 
+Where agents are heading (mention only, \~2 min of the 10; nothing hands-on):
+
+- **Skills:** packaged instructions, scripts, and reference files an agent loads only when a task calls for them, such as "run differential expression the way our lab does it." They let a lab encode its conventions once instead of re-prompting every time.
+- **Multi-agent workflows:** an orchestrating agent delegates to specialized sub-agents, for example one that plans, one that writes code, and one that reviews it, sometimes running in parallel.
+- **The same rule applies, harder:** more autonomy means more places for errors to compound between steps, so a written plan with checks matters more, not less.
+
 ### Lab part 1 (50 min)
 
 | Step | Min | Content |
